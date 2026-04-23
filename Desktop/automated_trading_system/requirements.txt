@@ -1,0 +1,11 @@
+yfinance>=0.2.36
+pandas>=2.0.0
+numpy>=1.24.0
+sqlalchemy>=2.0.0
+streamlit>=1.30.0
+plotly>=5.18.0
+ta>=0.11.0
+python-dotenv>=1.0.0
+pyotp>=2.9.0
+kiteconnect>=5.0.0
+websocket-client>=1.6.0
