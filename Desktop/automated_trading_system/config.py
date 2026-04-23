@@ -12,8 +12,6 @@ from datetime import datetime, timedelta
 #  General Settings
 # ──────────────────────────────────────────────
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-DATABASE_PATH = os.path.join(BASE_DIR, "trading_system.db")
-DATABASE_URL = f"sqlite:///{DATABASE_PATH}"
 
 # Load .env if available
 try:
@@ -21,6 +19,17 @@ try:
     load_dotenv(os.path.join(BASE_DIR, ".env"))
 except ImportError:
     pass
+
+# Database Configuration - supports both local SQLite and production PostgreSQL
+_db_url = os.getenv("DATABASE_URL")
+if _db_url:
+    # Production: PostgreSQL
+    # Fix Railway format: postgres:// -> postgresql://
+    DATABASE_URL = _db_url.replace("postgres://", "postgresql://")
+else:
+    # Development: SQLite
+    DATABASE_PATH = os.path.join(BASE_DIR, "trading_system.db")
+    DATABASE_URL = f"sqlite:///{DATABASE_PATH}"
 
 # ──────────────────────────────────────────────
 #  Market Presets

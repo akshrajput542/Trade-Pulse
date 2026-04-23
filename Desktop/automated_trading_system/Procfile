@@ -1,0 +1,2 @@
+web: streamlit run dashboard/app.py --server.port=$PORT --logger.level=error
+worker: python auto_trader_daemon.py

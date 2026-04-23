@@ -1,0 +1,27 @@
+services:
+  - type: web
+    name: trade-pulse-dashboard
+    env: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: streamlit run dashboard/app.py --server.port=$PORT --logger.level=error
+    envVars:
+      - key: PYTHONUNBUFFERED
+        value: true
+      - key: STREAMLIT_SERVER_HEADLESS
+        value: true
+  
+  - type: background_worker
+    name: trade-pulse-worker
+    env: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: python auto_trader_daemon.py
+    envVars:
+      - key: PYTHONUNBUFFERED
+        value: true
+
+databases:
+  - name: tradepulse-db
+    databaseName: tradepulse
+    plan: free
